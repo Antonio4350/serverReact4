@@ -1,4 +1,3 @@
-// server.js
 import express from "express";
 import cors from "cors";
 import {
@@ -16,35 +15,35 @@ import {
 } from "./funcionesbd.js";
 
 const app = express();
-app.use(cors());
+app.use(cors({ origin: "*", credentials: true })); // <- CORS abierto para tu front
 app.use(express.json());
 
 // Hero
-app.get("/api/hero", async (req, res) => {
-  const hero = await getHero(); // devuelve string
+app.get("/api/hero", async (_req, res) => {
+  const hero = await getHero();
   res.json({ hero });
 });
 
 app.put("/api/hero", async (req, res) => {
   const { texto } = req.body;
-  const updatedHero = await updateHero(texto); // devuelve objeto {id, texto}
+  const updatedHero = await updateHero(texto);
   res.json({ hero: updatedHero.texto });
 });
 
 // About
-app.get("/api/about", async (req, res) => {
-  const about = await getAbout(); // devuelve string
+app.get("/api/about", async (_req, res) => {
+  const about = await getAbout();
   res.json({ about });
 });
 
 app.put("/api/about", async (req, res) => {
   const { texto } = req.body;
-  const updatedAbout = await updateAbout(texto); // devuelve objeto {id, texto}
+  const updatedAbout = await updateAbout(texto);
   res.json({ about: updatedAbout.texto });
 });
 
 // Skills
-app.get("/api/skills", async (req, res) => {
+app.get("/api/skills", async (_req, res) => {
   const skills = await getSkills();
   res.json({ skills });
 });
@@ -56,7 +55,7 @@ app.put("/api/skills", async (req, res) => {
 });
 
 // Projects
-app.get("/api/projects", async (req, res) => {
+app.get("/api/projects", async (_req, res) => {
   const projects = await getProjects();
   res.json({ projects });
 });
