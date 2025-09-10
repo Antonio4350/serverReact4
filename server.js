@@ -18,7 +18,7 @@ const app = express();
 app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
 
-// Ruta consolidada para React
+// Ruta para React
 app.get("/api/portfolio", async (_req, res) => {
   const heroData = await getHero();
   const aboutData = await getAbout();
@@ -34,11 +34,14 @@ app.get("/api/portfolio", async (_req, res) => {
 
 app.put("/api/portfolio", async (req, res) => {
   const { hero, about } = req.body;
-  const updatedHero = await updateHero(hero);
-  const updatedAbout = await updateAbout(about);
+  const updatedHero = hero !== undefined ? await updateHero(hero) : null;
+  const updatedAbout = about !== undefined ? await updateAbout(about) : null;
 
   res.json({
-    portfolio: { hero: updatedHero.texto, about: updatedAbout.texto }
+    portfolio: {
+      hero: updatedHero ? updatedHero.texto : undefined,
+      about: updatedAbout ? updatedAbout.texto : undefined
+    }
   });
 });
 
@@ -74,6 +77,24 @@ app.get("/api/skills", async (_req, res) => {
 
 app.put("/api/skills", async (req, res) => {
   const { skills } = req.body;
+  const updatedSkills = await updateSkills(skills);
+  res.json({ skills: updatedSkills });
+});
+
+// Agregar habilidad individual
+app.post("/api/skills", async (req, res) => {
+  const { nombre, nivel } = req.body;
+  const allSkills = await getSkills();
+  const newSkill = { nombre, nivel };
+  const updatedSkills = await updateSkills([...allSkills, newSkill]);
+  res.json({ skills: updatedSkills });
+});
+
+// Eliminar habilidad por id
+app.delete("/api/skills/:id", async (req, res) => {
+  const { id } = req.params;
+  let skills = await getSkills();
+  skills = skills.filter(s => s.id != id);
   const updatedSkills = await updateSkills(skills);
   res.json({ skills: updatedSkills });
 });
