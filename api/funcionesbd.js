@@ -3,7 +3,7 @@ import { connectBD } from './conectbd.js';
 // Hero
 export async function getHero() {
   const db = await connectBD();
-  if (!db) return;
+  if (!db) return '';
   try {
     const result = await db.query('SELECT texto FROM hero WHERE id=1');
     return result.rows[0]?.texto || '';
@@ -22,7 +22,7 @@ export async function updateHero(texto) {
 // About
 export async function getAbout() {
   const db = await connectBD();
-  if (!db) return;
+  if (!db) return '';
   try {
     const result = await db.query('SELECT texto FROM about WHERE id=1');
     return result.rows[0]?.texto || '';
@@ -50,7 +50,7 @@ export async function getSkills() {
 
 export async function updateSkills(skills) {
   const db = await connectBD();
-  if (!db) return;
+  if (!db) return [];
   try {
     for (const s of skills) {
       if (s.id) {
