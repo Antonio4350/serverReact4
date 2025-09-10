@@ -1,6 +1,6 @@
 import { connectBD } from './conectbd.js';
 
-// Hero
+// hero
 export async function getHero() {
   const db = await connectBD();
   if (!db) return '';
@@ -19,7 +19,7 @@ export async function updateHero(texto) {
   } finally { await db.end(); }
 }
 
-// About
+// sobre
 export async function getAbout() {
   const db = await connectBD();
   if (!db) return '';
@@ -38,7 +38,7 @@ export async function updateAbout(texto) {
   } finally { await db.end(); }
 }
 
-// Skills
+// habilidades
 export async function getSkills() {
   const db = await connectBD();
   if (!db) return [];
@@ -64,7 +64,7 @@ export async function updateSkills(skills) {
   } finally { await db.end(); }
 }
 
-// Projects
+// projectos
 export async function getProjects() {
   const db = await connectBD();
   if (!db) return [];
@@ -107,7 +107,7 @@ export async function deleteProject(id) {
   } finally { await db.end(); }
 }
 
-// Login
+// login
 export async function loginUser(username, password) {
   const db = await connectBD();
   if (!db) return false;

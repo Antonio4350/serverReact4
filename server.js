@@ -18,7 +18,7 @@ const app = express();
 app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
 
-// Ruta para React
+// ruta para el react
 app.get("/api/portfolio", async (_req, res) => {
   const heroData = await getHero();
   const aboutData = await getAbout();
@@ -45,7 +45,7 @@ app.put("/api/portfolio", async (req, res) => {
   });
 });
 
-// Hero
+// hero
 app.get("/api/hero", async (_req, res) => {
   const hero = await getHero();
   res.json({ hero });
@@ -57,7 +57,7 @@ app.put("/api/hero", async (req, res) => {
   res.json({ hero: updatedHero.texto });
 });
 
-// About
+// sobre
 app.get("/api/about", async (_req, res) => {
   const about = await getAbout();
   res.json({ about });
@@ -69,7 +69,7 @@ app.put("/api/about", async (req, res) => {
   res.json({ about: updatedAbout.texto });
 });
 
-// Skills
+// habilidades
 app.get("/api/skills", async (_req, res) => {
   const skills = await getSkills();
   res.json({ skills });
@@ -81,7 +81,7 @@ app.put("/api/skills", async (req, res) => {
   res.json({ skills: updatedSkills });
 });
 
-// Agregar habilidad individual
+// agregar habilidades
 app.post("/api/skills", async (req, res) => {
   const { nombre, nivel } = req.body;
   const allSkills = await getSkills();
@@ -90,7 +90,7 @@ app.post("/api/skills", async (req, res) => {
   res.json({ skills: updatedSkills });
 });
 
-// Eliminar habilidad por id
+// eliminar habilidades
 app.delete("/api/skills/:id", async (req, res) => {
   const { id } = req.params;
   let skills = await getSkills();
@@ -99,7 +99,7 @@ app.delete("/api/skills/:id", async (req, res) => {
   res.json({ skills: updatedSkills });
 });
 
-// Projects
+// projectos
 app.get("/api/projects", async (_req, res) => {
   const projects = await getProjects();
   res.json({ projects });
@@ -124,7 +124,7 @@ app.delete("/api/projects/:id", async (req, res) => {
   res.json({ project: deletedProject });
 });
 
-// Login
+// login
 app.post("/api/login", async (req, res) => {
   const { username, password } = req.body;
   const ok = await loginUser(username, password);
@@ -135,7 +135,7 @@ app.post("/api/login", async (req, res) => {
   }
 });
 
-// Arrancar servidor
+// servidor
 const PORT = process.env.PORT || 3001;
 app.listen(PORT, () => {
   console.log(`Servidor corriendo en puerto ${PORT}`);
