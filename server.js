@@ -18,6 +18,30 @@ const app = express();
 app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
 
+// Ruta consolidada para React
+app.get("/api/portfolio", async (_req, res) => {
+  const heroData = await getHero();
+  const aboutData = await getAbout();
+  const skillsData = await getSkills();
+  const projectsData = await getProjects();
+
+  res.json({
+    portfolio: { hero: heroData, about: aboutData },
+    skills: skillsData,
+    projects: projectsData
+  });
+});
+
+app.put("/api/portfolio", async (req, res) => {
+  const { hero, about } = req.body;
+  const updatedHero = await updateHero(hero);
+  const updatedAbout = await updateAbout(about);
+
+  res.json({
+    portfolio: { hero: updatedHero.texto, about: updatedAbout.texto }
+  });
+});
+
 // Hero
 app.get("/api/hero", async (_req, res) => {
   const hero = await getHero();
